@@ -101,9 +101,8 @@ function initGame() {
         const pieceTextureKey = 'piece_' + id;
 
         // ピースのテクスチャを作成
-        this.textures.createCanvas(pieceTextureKey, pieceWidth, pieceHeight);
-        const canvas = this.textures.get(pieceTextureKey).getSourceImage();
-        const ctx = canvas.getContext('2d');
+        const canvasTexture = this.textures.createCanvas(pieceTextureKey, pieceWidth, pieceHeight);
+        const ctx = canvasTexture.context;
         ctx.drawImage(
           texture,
           x / scale,
@@ -115,7 +114,7 @@ function initGame() {
           pieceWidth,
           pieceHeight
         );
-        this.textures.get(pieceTextureKey).refresh();
+        canvasTexture.refresh();
 
         // ピーススプライトを作成
         const piece = this.add.image(0, 0, pieceTextureKey);
