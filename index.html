@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSSの読み込み -->
   <link rel="stylesheet" href="styles.css">
-  <!-- fabric.jsの読み込み（CDN） -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.6.0/fabric.min.js"></script>
-  <!-- JigsawJsの読み込み（CDN） -->
-  <script src="https://path-to-jigsawjs-library.js"></script>
+  <!-- Phaser.jsの読み込み（CDN） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.55.2/phaser.min.js"></script>
 </head>
 <body>
 
@@ -33,9 +31,7 @@
 <!-- パズルプレイ画面 -->
 <div id="game-screen" style="display: none;">
   <button id="reset-button">リセット</button>
-  <div id="game-container">
-    <div id="puzzle-container"></div>
-  </div>
+  <div id="game-container"></div>
 </div>
 
 <!-- ゲームクリア画面 -->
@@ -45,6 +41,6 @@
 </div>
 
 <!-- スクリプトの読み込み -->
-<script src="script.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
