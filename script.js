@@ -76,7 +76,7 @@ function initGame() {
   };
 
   // JigsawJsを使用してパズルを生成
-  const puzzle = new Jigsaw(puzzleContainer, options); // ここを確認
+  const puzzle = new JigsawJs(puzzleContainer, options);
 
   // ピースを右側に配置
   arrangePiecesOutside(puzzle);
