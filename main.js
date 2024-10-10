@@ -24,11 +24,8 @@ document.getElementById('upload-image').addEventListener('change', function (e) 
   if (file && file.size <= 5 * 1024 * 1024) {
     const reader = new FileReader();
     reader.onload = function (event) {
-      selectedImage = new Image();
-      selectedImage.onload = function () {
-        document.getElementById('start-button').disabled = false;
-      };
-      selectedImage.src = event.target.result;
+      selectedImage = event.target.result;
+      document.getElementById('start-button').disabled = false;
     };
     reader.readAsDataURL(file);
   } else {
@@ -69,7 +66,7 @@ function initGame() {
 
   function preload() {
     // 画像をテクスチャとして読み込み
-    this.textures.addBase64('puzzleImage', selectedImage.src);
+    this.load.image('puzzleImage', selectedImage);
   }
 
   function create() {
