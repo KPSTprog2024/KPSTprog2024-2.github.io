@@ -7,6 +7,8 @@ let piecesGroup;
 let puzzleGroup;
 let gameWidth = window.innerWidth;
 let gameHeight = window.innerHeight - 50; // 50はリセットボタンの高さを考慮
+let imageKey = '';
+let imageCounter = 0;
 
 document.getElementById('piece-count').addEventListener('change', function (e) {
   const value = e.target.value;
@@ -51,6 +53,9 @@ document.getElementById('reset-button').addEventListener('click', function () {
 });
 
 function initGame() {
+  imageCounter++;
+  imageKey = 'puzzleImage_' + imageCounter;
+
   const config = {
     type: Phaser.AUTO,
     width: gameWidth,
@@ -63,114 +68,118 @@ function initGame() {
   };
 
   const game = new Phaser.Game(config);
+}
 
-  function preload() {
-    // 画像をテクスチャとして読み込み
-    this.load.image('puzzleImage', selectedImage);
+function preload() {
+  // 既存のテクスチャを削除
+  if (this.textures.exists(imageKey)) {
+    this.textures.remove(imageKey);
   }
 
-  function create() {
-    const scene = this;
-    const texture = this.textures.get('puzzleImage').getSourceImage();
+  this.load.image(imageKey, selectedImage);
+}
 
-    // 画像サイズをゲーム画面にフィットさせる
-    const scaleX = gameWidth / texture.width;
-    const scaleY = gameHeight / texture.height;
-    const scale = Math.min(scaleX, scaleY);
+function create() {
+  const scene = this;
+  const texture = this.textures.get(imageKey).getSourceImage();
 
-    const imageWidth = texture.width * scale;
-    const imageHeight = texture.height * scale;
+  // 画像サイズをゲーム画面にフィットさせる
+  const scaleX = gameWidth / texture.width;
+  const scaleY = gameHeight / texture.height;
+  const scale = Math.min(scaleX, scaleY);
 
-    pieceWidth = Math.floor(imageWidth / cols);
-    pieceHeight = Math.floor(imageHeight / rows);
+  const imageWidth = texture.width * scale;
+  const imageHeight = texture.height * scale;
 
-    // ピースを生成
-    piecesGroup = this.add.group();
-    puzzleGroup = this.add.group();
+  pieceWidth = Math.floor(imageWidth / cols);
+  pieceHeight = Math.floor(imageHeight / rows);
 
-    let id = 0;
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const x = col * pieceWidth;
-        const y = row * pieceHeight;
+  // ピースを生成
+  piecesGroup = this.add.group();
+  puzzleGroup = this.add.group();
 
-        // ピースを作成
-        const pieceTextureKey = 'piece_' + id;
+  let id = 0;
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const x = col * pieceWidth;
+      const y = row * pieceHeight;
 
-        // ピースのテクスチャを作成
-        const canvasTexture = this.textures.createCanvas(pieceTextureKey, pieceWidth, pieceHeight);
-        const ctx = canvasTexture.context;
-        ctx.drawImage(
-          texture,
-          x / scale,
-          y / scale,
-          pieceWidth / scale,
-          pieceHeight / scale,
-          0,
-          0,
-          pieceWidth,
-          pieceHeight
-        );
-        canvasTexture.refresh();
+      // ピースを作成
+      const pieceTextureKey = imageKey + '_piece_' + id;
 
-        // ピーススプライトを作成
-        const piece = this.add.image(0, 0, pieceTextureKey);
-        piece.setOrigin(0);
-        piece.setInteractive();
-        this.input.setDraggable(piece);
+      // ピースのテクスチャを作成
+      const canvasTexture = this.textures.createCanvas(pieceTextureKey, pieceWidth, pieceHeight);
+      const ctx = canvasTexture.context;
+      ctx.drawImage(
+        texture,
+        x / scale,
+        y / scale,
+        pieceWidth / scale,
+        pieceHeight / scale,
+        0,
+        0,
+        pieceWidth,
+        pieceHeight
+      );
+      canvasTexture.refresh();
 
-        // 正しい位置を記録
-        piece.correctX = x;
-        piece.correctY = y;
+      // ピーススプライトを作成
+      const piece = this.add.image(0, 0, pieceTextureKey);
+      piece.setOrigin(0);
+      piece.setInteractive();
+      this.input.setDraggable(piece);
 
-        // ランダムな位置に配置（右側の縦2列）
-        const posX = gameWidth - pieceWidth * (Math.random() < 0.5 ? 2 : 1) - Phaser.Math.Between(0, 10);
-        const posY = Phaser.Math.Between(0, gameHeight - pieceHeight);
+      // 正しい位置を記録
+      piece.correctX = x;
+      piece.correctY = y;
 
-        piece.x = posX;
-        piece.y = posY;
+      // ランダムな位置に配置（右側の縦2列）
+      const posX = gameWidth - pieceWidth * (Math.random() < 0.5 ? 2 : 1) - Phaser.Math.Between(0, 10);
+      const posY = Phaser.Math.Between(0, gameHeight - pieceHeight);
 
-        piecesGroup.add(piece);
+      piece.x = posX;
+      piece.y = posY;
 
-        id++;
+      piecesGroup.add(piece);
+
+      id++;
+    }
+  }
+
+  // ドラッグイベント
+  this.input.on('dragstart', function (pointer, gameObject) {
+    gameObject.setDepth(1);
+  });
+
+  this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+    gameObject.x = dragX;
+    gameObject.y = dragY;
+  });
+
+  this.input.on('dragend', function (pointer, gameObject) {
+    // 正しい位置に近いか確認
+    const distance = Phaser.Math.Distance.Between(
+      gameObject.x,
+      gameObject.y,
+      gameObject.correctX,
+      gameObject.correctY
+    );
+
+    if (distance < 30) {
+      // スナップ
+      gameObject.x = gameObject.correctX;
+      gameObject.y = gameObject.correctY;
+      gameObject.setDepth(0);
+      puzzleGroup.add(gameObject);
+      piecesGroup.remove(gameObject);
+
+      // すべてのピースが配置されたか確認
+      if (piecesGroup.getChildren().length === 0) {
+        scene.time.delayedCall(500, () => {
+          document.getElementById('game-screen').style.display = 'none';
+          document.getElementById('game-clear-screen').style.display = 'block';
+        });
       }
     }
-
-    // ドラッグイベント
-    this.input.on('dragstart', function (pointer, gameObject) {
-      gameObject.setDepth(1);
-    });
-
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-    });
-
-    this.input.on('dragend', function (pointer, gameObject) {
-      // 正しい位置に近いか確認
-      const distance = Phaser.Math.Distance.Between(
-        gameObject.x,
-        gameObject.y,
-        gameObject.correctX,
-        gameObject.correctY
-      );
-
-      if (distance < 30) {
-        // スナップ
-        gameObject.x = gameObject.correctX;
-        gameObject.y = gameObject.correctY;
-        gameObject.setDepth(0);
-        puzzleGroup.add(gameObject);
-        piecesGroup.remove(gameObject);
-
-        // すべてのピースが配置されたか確認
-        if (piecesGroup.getChildren().length === 0) {
-          scene.time.delayedCall(500, () => {
-            document.getElementById('game-screen').style.display = 'none';
-            document.getElementById('game-clear-screen').style.display = 'block';
-          });
-        }
-      }
-    });
-  }
+  });
 }
