@@ -9,7 +9,7 @@
   <!-- fabric.jsの読み込み（CDN） -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.6.0/fabric.min.js"></script>
   <!-- JigsawJsの読み込み（CDN） -->
-  <script src="https://unpkg.com/jigsawjs@1.1.0/dist/jigsaw.min.js"></script>
+  <script src="https://unpkg.com/jigsawjs/dist/jigsaw.min.js"></script>
 </head>
 <body>
 
@@ -19,32 +19,4 @@
   <label for="piece-count">ピース数を選択してください:</label>
   <select id="piece-count">
     <option value="6x8">48ピース（6×8）</option>
-    <option value="9x12">108ピース（9×12）</option>
-  </select>
-  <br><br>
-  <label for="upload-image" class="upload-button">
-    画像をアップロード
-    <input type="file" id="upload-image" accept="image/png, image/jpeg">
-  </label>
-  <br><br>
-  <button id="start-button" disabled>スタート</button>
-</div>
-
-<!-- パズルプレイ画面 -->
-<div id="game-screen" style="display: none;">
-  <button id="reset-button">リセット</button>
-  <div id="game-container">
-    <div id="puzzle-container"></div>
-  </div>
-</div>
-
-<!-- ゲームクリア画面 -->
-<div id="game-clear-screen" style="display: none;">
-  <h1>クリア！</h1>
-  <button id="retry-button">もう一度挑戦</button>
-</div>
-
-<!-- スクリプトの読み込み -->
-<script src="script.js"></script>
-</body>
-</html>
+    <option value="9x12">108
