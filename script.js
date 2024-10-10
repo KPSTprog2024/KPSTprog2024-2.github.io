@@ -59,7 +59,6 @@ function initGame() {
       document.getElementById('game-screen').style.display = 'none';
       document.getElementById('game-clear-screen').style.display = 'block';
     },
-    // ピースをキャンバス外（右側）に配置する設定
     cut: {
       shape: 'classic'
     },
@@ -71,14 +70,13 @@ function initGame() {
       draggable: true,
       rotatable: false
     },
-    // タッチデバイス対応
     drag: {
       touch: true
     }
   };
 
   // JigsawJsを使用してパズルを生成
-  const puzzle = new JigsawJs(puzzleContainer, options);
+  const puzzle = new Jigsaw(puzzleContainer, options); // ここを確認
 
   // ピースを右側に配置
   arrangePiecesOutside(puzzle);
@@ -99,10 +97,11 @@ function arrangePiecesOutside(puzzle) {
   let yOffset = 10;
 
   pieces.forEach((piece, index) => {
-    piece.element.style.position = 'absolute';
-    piece.element.style.left = xOffset + 'px';
-    piece.element.style.top = yOffset + 'px';
-    puzzleContainer.appendChild(piece.element);
+    piece.element.set({
+      left: xOffset,
+      top: yOffset
+    });
+    piece.element.setCoords();
 
     yOffset += pieceHeight + 10;
 
@@ -112,4 +111,6 @@ function arrangePiecesOutside(puzzle) {
       yOffset = 10;
     }
   });
+
+  puzzle.canvas.renderAll();
 }
