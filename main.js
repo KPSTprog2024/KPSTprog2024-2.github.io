@@ -102,7 +102,8 @@ function initGame() {
 
         // ピースのテクスチャを作成
         this.textures.createCanvas(pieceTextureKey, pieceWidth, pieceHeight);
-        const ctx = this.textures.getCanvas(pieceTextureKey).getContext('2d');
+        const canvas = this.textures.get(pieceTextureKey).getSourceImage();
+        const ctx = canvas.getContext('2d');
         ctx.drawImage(
           texture,
           x / scale,
