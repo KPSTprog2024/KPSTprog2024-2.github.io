@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#start-screen, #game-clear-screen {
+  text-align: center;
+  padding: 50px;
+}
+
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+#puzzle-container {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.upload-button input {
+  display: none;
+}
+
+#start-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#reset-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+#retry-button {
+  padding: 10px 20px;
+}
