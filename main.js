@@ -112,7 +112,7 @@ function create() {
 
     // 枠を描画
     const graphics = scene.add.graphics();
-    graphics.lineStyle(32, 0xFF9800); // 枠線を太くし、明るいオレンジ色に設定
+    graphics.lineStyle(1024, 0xFF9800); // 枠線を太くし、明るいオレンジ色に設定
     graphics.strokeRect(frameX, frameY, frameWidth, frameHeight);
     graphics.fillStyle(0x1E1E1E, 1); // ダークグレーの背景
     graphics.fillRect(frameX, frameY, frameWidth, frameHeight);
