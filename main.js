@@ -6,7 +6,7 @@ let pieceHeight;
 let piecesGroup;
 let puzzleGroup;
 let gameWidth = window.innerWidth;
-let gameHeight = window.innerHeight - 150; // タイトルと余白分高さを減らす
+let gameHeight = window.innerHeight - 200; // タイトルと余白分高さを減らす
 let imageKey = '';
 let imageCounter = 0;
 
@@ -62,7 +62,7 @@ function initGame() {
   const config = {
     type: Phaser.AUTO,
     width: gameWidth,
-    height: gameHeight,
+    height: gameHeight * 2, // 高さを2倍に設定してスクロール可能に
     parent: 'game-container',
     scene: {
       preload: preload,
@@ -105,8 +105,8 @@ function create() {
     const texture = scene.textures.get(imageKey).getSourceImage();
 
     // 画像サイズをゲーム画面にフィットさせる
-    const scaleX = (gameWidth * 0.6) / texture.width;
-    const scaleY = (gameHeight * 0.6) / texture.height;
+    const scaleX = (gameWidth * 0.8) / texture.width;
+    const scaleY = (gameHeight * 0.4) / texture.height; // 上部に配置するため0.4に変更
     const scale = Math.min(scaleX, scaleY);
 
     const imageWidth = texture.width * scale;
@@ -197,7 +197,7 @@ function create() {
 
         // ランダムな位置に配置（画面上部に配置）
         const posX = Phaser.Math.Between(20, gameWidth - pieceWidth - 20);
-        const posY = frameY + frameHeight + 20 + imageHeight + 20 + Phaser.Math.Between(0, 50);
+        const posY = frameY + frameHeight + 20 + Phaser.Math.Between(0, 100);
 
         piece.x = posX;
         piece.y = posY;
