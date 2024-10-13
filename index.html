@@ -14,19 +14,23 @@
 <!-- スタート画面 -->
 <div id="start-screen">
   <h1>きょうのジグソーパズル</h1>
-  <label for="piece-count">ピースのかずをえらんでね:</label>
-  <select id="piece-count">
-    <option value="3x4">12ピース（3×4）</option>
-    <option value="4x5">20ピース（4×5）</option>
-    <option value="6x8">48ピース（6×8）</option>
-  </select>
-  <br><br>
-  <label for="upload-image" class="upload-button">
-    がぞうをいれる
-    <input type="file" id="upload-image" accept="image/png, image/jpeg">
-  </label>
-  <br><br>
-  <button id="start-button" disabled>はじめる</button>
+  <div class="button-container">
+    <label for="piece-count" class="tile-button">
+      ピースのかずをえらんでね
+      <select id="piece-count">
+        <option value="3x4">12ピース（3×4）</option>
+        <option value="4x5">20ピース（4×5）</option>
+        <option value="6x8">48ピース（6×8）</option>
+      </select>
+    </label>
+
+    <label for="upload-image" class="tile-button">
+      がぞうをいれる
+      <input type="file" id="upload-image" accept="image/png, image/jpeg">
+    </label>
+
+    <button id="start-button" disabled class="tile-button">はじめる</button>
+  </div>
 </div>
 
 <!-- パズルプレイ画面 -->
