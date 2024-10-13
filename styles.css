@@ -29,34 +29,58 @@ body {
   background-color: #8E24AA; /* 紫色に近いハロウィンカラー */
 }
 
-.upload-button {
+/* ボタンコンテナのスタイル */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* ボタン間のスペース */
+}
+
+/* タイルボタンのスタイル */
+.tile-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
-  padding: 20px 40px; /* ボタンを大きく */
+  width: 200px;
+  height: 150px;
   font-size: 24px; /* フォントサイズを大きく */
   cursor: pointer;
   border: none;
+  border-radius: 10px;
+  position: relative;
 }
 
-.upload-button:hover {
+/* ボタンのホバー効果 */
+.tile-button:hover {
   background-color: #FFD54F; /* より明るいオレンジ */
 }
 
-.upload-button input {
-  display: none;
+/* ラベル内のselect要素とinput要素を非表示に */
+.tile-button select,
+.tile-button input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
+/* スタートボタンのスタイル調整 */
 #start-button {
-  background-color: #FFB74D; /* 明るいオレンジ */
+  background-color: #FFB74D;
   color: white;
-  padding: 20px 40px; /* ボタンを大きく */
-  font-size: 24px; /* フォントサイズを大きく */
-  border: none;
+  width: 200px;
+  height: 150px;
+  font-size: 24px;
   cursor: pointer;
-}
-
-#start-button:hover {
-  background-color: #FFD54F; /* より明るいオレンジ */
+  border: none;
+  border-radius: 10px;
 }
 
 #start-button:disabled {
@@ -64,6 +88,11 @@ body {
   cursor: not-allowed;
 }
 
+#start-button:hover:enabled {
+  background-color: #FFD54F;
+}
+
+/* ゲーム画面のボタンスタイル */
 #reset-button, #retry-button {
   background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
@@ -71,6 +100,7 @@ body {
   font-size: 20px; /* フォントサイズを大きく */
   border: none;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 #reset-button:hover, #retry-button:hover {
@@ -95,9 +125,11 @@ h1, label, select, button {
 select {
   background-color: #AB47BC; /* 明るめのパープル */
   color: #FFFFFF;
-  border: 1px solid #FFB74D;
+  border: none;
   padding: 10px;
   font-size: 24px; /* フォントサイズを大きく */
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 option {
@@ -116,7 +148,7 @@ option {
   margin-top: 20px;
 }
 
-button:focus, .upload-button:focus, select:focus {
+button:focus, .tile-button:focus, select:focus {
   outline: none;
   box-shadow: 0 0 5px #FFB74D;
 }
