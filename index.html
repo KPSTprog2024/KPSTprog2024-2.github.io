@@ -16,8 +16,9 @@
   <h1>ジグソーパズルゲーム</h1>
   <label for="piece-count">ピース数を選択してください:</label>
   <select id="piece-count">
+    <option value="3x4">12ピース（3×4）</option>
+    <option value="4x5">20ピース（4×5）</option>
     <option value="6x8">48ピース（6×8）</option>
-    <option value="9x12">108ピース（9×12）</option>
   </select>
   <br><br>
   <label for="upload-image" class="upload-button">
@@ -31,7 +32,10 @@
 <!-- パズルプレイ画面 -->
 <div id="game-screen" style="display: none;">
   <button id="reset-button">リセット</button>
-  <div id="game-container"></div>
+  <div id="game-container" style="position: relative;">
+    <!-- ピースを置くキャンバスの枠を表示 -->
+    <div id="puzzle-frame"></div>
+  </div>
 </div>
 
 <!-- ゲームクリア画面 -->
