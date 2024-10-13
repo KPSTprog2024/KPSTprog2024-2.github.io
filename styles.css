@@ -32,7 +32,8 @@ body {
 .upload-button {
   background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
-  padding: 10px 20px;
+  padding: 20px 40px; /* ボタンを大きく */
+  font-size: 24px; /* フォントサイズを大きく */
   cursor: pointer;
   border: none;
 }
@@ -48,7 +49,8 @@ body {
 #start-button {
   background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
-  padding: 10px 20px;
+  padding: 20px 40px; /* ボタンを大きく */
+  font-size: 24px; /* フォントサイズを大きく */
   border: none;
   cursor: pointer;
 }
@@ -65,7 +67,8 @@ body {
 #reset-button, #retry-button {
   background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
-  padding: 10px 20px;
+  padding: 15px 30px; /* ボタンを大きく */
+  font-size: 20px; /* フォントサイズを大きく */
   border: none;
   cursor: pointer;
 }
@@ -82,7 +85,7 @@ body {
 }
 
 #retry-button {
-  padding: 10px 20px;
+  padding: 20px 40px;
 }
 
 h1, label, select, button {
@@ -93,12 +96,14 @@ select {
   background-color: #AB47BC; /* 明るめのパープル */
   color: #FFFFFF;
   border: 1px solid #FFB74D;
-  padding: 5px;
+  padding: 10px;
+  font-size: 24px; /* フォントサイズを大きく */
 }
 
 option {
   background-color: #AB47BC; /* 明るめのパープル */
   color: #FFFFFF;
+  font-size: 24px; /* フォントサイズを大きく */
 }
 
 #game-clear-screen h1 {
