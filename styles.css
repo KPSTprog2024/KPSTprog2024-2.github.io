@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #4B0082; /* 明るめのパープル */
+  background-color: #6A1B9A; /* 明るめのパープル */
   color: #FFFFFF; /* 白いテキスト */
 }
 
@@ -19,7 +19,7 @@ body {
 }
 
 .upload-button {
-  background-color: #FF9800; /* 明るいオレンジ */
+  background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
   padding: 10px 20px;
   cursor: pointer;
@@ -27,7 +27,7 @@ body {
 }
 
 .upload-button:hover {
-  background-color: #FFB74D; /* より明るいオレンジ */
+  background-color: #FFD54F; /* より明るいオレンジ */
 }
 
 .upload-button input {
@@ -35,7 +35,7 @@ body {
 }
 
 #start-button {
-  background-color: #FF9800; /* 明るいオレンジ */
+  background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -43,7 +43,7 @@ body {
 }
 
 #start-button:hover {
-  background-color: #FFB74D; /* より明るいオレンジ */
+  background-color: #FFD54F; /* より明るいオレンジ */
 }
 
 #start-button:disabled {
@@ -52,7 +52,7 @@ body {
 }
 
 #reset-button, #retry-button {
-  background-color: #FF9800; /* 明るいオレンジ */
+  background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -60,7 +60,7 @@ body {
 }
 
 #reset-button:hover, #retry-button:hover {
-  background-color: #FFB74D; /* より明るいオレンジ */
+  background-color: #FFD54F; /* より明るいオレンジ */
 }
 
 #reset-button {
@@ -81,23 +81,23 @@ h1, label, select, button {
 
 /* 選択ボックスのスタイル */
 select {
-  background-color: #673AB7; /* 明るめのパープル */
+  background-color: #AB47BC; /* 明るめのパープル */
   color: #FFFFFF;
-  border: 1px solid #FF9800;
+  border: 1px solid #FFB74D;
   padding: 5px;
 }
 
 option {
-  background-color: #673AB7; /* 明るめのパープル */
+  background-color: #AB47BC; /* 明るめのパープル */
   color: #FFFFFF;
 }
 
 #game-clear-screen h1 {
-  color: #FF9800; /* 明るいオレンジ */
+  color: #FFB74D; /* 明るいオレンジ */
 }
 
 /* リンクやボタンのフォーカス時のスタイル */
 button:focus, .upload-button:focus, select:focus {
   outline: none;
-  box-shadow: 0 0 5px #FF9800;
+  box-shadow: 0 0 5px #FFB74D;
 }
