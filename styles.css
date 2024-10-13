@@ -4,6 +4,7 @@ body {
   padding: 0;
   background-color: #6A1B9A; /* 明るめのパープル */
   color: #FFFFFF; /* 白いテキスト */
+  overflow: auto; /* 画面をスクロール可能にする */
 }
 
 #start-screen, #game-clear-screen {
@@ -22,8 +23,8 @@ body {
 
 #game-container {
   width: 100%;
-  height: calc(100vh - 150px); /* タイトルと余白分高さを減らす */
-  overflow: hidden;
+  height: auto; /* 高さを自動調整 */
+  overflow: visible; /* コンテンツが溢れた場合でも表示 */
   position: relative;
 }
 
