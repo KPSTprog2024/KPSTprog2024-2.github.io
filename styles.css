@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #2E1A47; /* ダークパープル */
+  background-color: #4B0082; /* 明るめのパープル */
   color: #FFFFFF; /* 白いテキスト */
 }
 
@@ -19,7 +19,7 @@ body {
 }
 
 .upload-button {
-  background-color: #FF7518; /* オレンジ */
+  background-color: #FF9800; /* 明るいオレンジ */
   color: white;
   padding: 10px 20px;
   cursor: pointer;
@@ -27,7 +27,7 @@ body {
 }
 
 .upload-button:hover {
-  background-color: #E66400; /* ダークオレンジ */
+  background-color: #FFB74D; /* より明るいオレンジ */
 }
 
 .upload-button input {
@@ -35,7 +35,7 @@ body {
 }
 
 #start-button {
-  background-color: #FF7518; /* オレンジ */
+  background-color: #FF9800; /* 明るいオレンジ */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -43,7 +43,7 @@ body {
 }
 
 #start-button:hover {
-  background-color: #E66400; /* ダークオレンジ */
+  background-color: #FFB74D; /* より明るいオレンジ */
 }
 
 #start-button:disabled {
@@ -52,7 +52,7 @@ body {
 }
 
 #reset-button, #retry-button {
-  background-color: #FF7518; /* オレンジ */
+  background-color: #FF9800; /* 明るいオレンジ */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -60,7 +60,7 @@ body {
 }
 
 #reset-button:hover, #retry-button:hover {
-  background-color: #E66400; /* ダークオレンジ */
+  background-color: #FFB74D; /* より明るいオレンジ */
 }
 
 #reset-button {
@@ -74,15 +74,6 @@ body {
   padding: 10px 20px;
 }
 
-#puzzle-frame {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  border: 2px solid #FF7518; /* オレンジ色の枠 */
-  background-color: #1E1E1E; /* ダークグレー */
-  z-index: 1;
-}
-
 /* テキストカラーを白に設定 */
 h1, label, select, button {
   color: #FFFFFF;
@@ -90,23 +81,23 @@ h1, label, select, button {
 
 /* 選択ボックスのスタイル */
 select {
-  background-color: #1E1E1E; /* ダークグレー */
+  background-color: #673AB7; /* 明るめのパープル */
   color: #FFFFFF;
-  border: 1px solid #FF7518;
+  border: 1px solid #FF9800;
   padding: 5px;
 }
 
 option {
-  background-color: #1E1E1E; /* ダークグレー */
+  background-color: #673AB7; /* 明るめのパープル */
   color: #FFFFFF;
 }
 
 #game-clear-screen h1 {
-  color: #FF7518; /* オレンジ */
+  color: #FF9800; /* 明るいオレンジ */
 }
 
 /* リンクやボタンのフォーカス時のスタイル */
 button:focus, .upload-button:focus, select:focus {
   outline: none;
-  box-shadow: 0 0 5px #FF7518;
+  box-shadow: 0 0 5px #FF9800;
 }
