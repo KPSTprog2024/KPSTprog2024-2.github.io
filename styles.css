@@ -32,9 +32,9 @@ body {
 /* ボタンコンテナのスタイル */
 .button-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px; /* ボタン間のスペース */
+  flex-direction: column; /* 縦に並べる */
+  align-items: center;
+  gap: 30px; /* ボタン間のスペースを広げる */
 }
 
 /* タイルボタンのスタイル */
@@ -45,8 +45,8 @@ body {
   justify-content: center;
   background-color: #FFB74D; /* 明るいオレンジ */
   color: white;
-  width: 200px;
-  height: 150px;
+  width: 250px; /* ボタンの幅を調整 */
+  height: 150px; /* ボタンの高さを統一 */
   font-size: 24px; /* フォントサイズを大きく */
   cursor: pointer;
   border: none;
@@ -75,8 +75,8 @@ body {
 #start-button {
   background-color: #FFB74D;
   color: white;
-  width: 200px;
-  height: 150px;
+  width: 250px; /* ボタンの幅を調整 */
+  height: 150px; /* ボタンの高さを統一 */
   font-size: 24px;
   cursor: pointer;
   border: none;
