@@ -9,7 +9,6 @@ let gameWidth = window.innerWidth;
 let gameHeight = window.innerHeight - 50; // 50はリセットボタンの高さを考慮
 let imageKey = '';
 let imageCounter = 0;
-let puzzleFrame; // パズルの枠
 
 document.getElementById('piece-count').addEventListener('change', function (e) {
   const value = e.target.value;
@@ -103,7 +102,7 @@ function create() {
     pieceWidth = Math.floor(imageWidth / cols);
     pieceHeight = Math.floor(imageHeight / rows);
 
-    // パズルの枠を設定
+    // パズルの枠を描画
     const frameX = 10; // 左からの位置
     const frameY = 10; // 上からの位置
 
@@ -111,12 +110,13 @@ function create() {
     const frameWidth = pieceWidth * cols;
     const frameHeight = pieceHeight * rows;
 
-    // 枠を表示
-    const puzzleFrameElement = document.getElementById('puzzle-frame');
-    puzzleFrameElement.style.left = frameX + 'px';
-    puzzleFrameElement.style.top = frameY + 'px';
-    puzzleFrameElement.style.width = frameWidth + 'px';
-    puzzleFrameElement.style.height = frameHeight + 'px';
+    // 枠を描画
+    const graphics = scene.add.graphics();
+    graphics.lineStyle(4, 0xFF9800); // 枠線を太くし、明るいオレンジ色に設定
+    graphics.strokeRect(frameX, frameY, frameWidth, frameHeight);
+    graphics.fillStyle(0x1E1E1E, 1); // ダークグレーの背景
+    graphics.fillRect(frameX, frameY, frameWidth, frameHeight);
+    graphics.setDepth(0);
 
     // ピースを生成
     piecesGroup = scene.add.group();
