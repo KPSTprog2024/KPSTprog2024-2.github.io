@@ -26,6 +26,7 @@ body {
   height: auto; /* 高さを自動調整 */
   overflow: visible; /* コンテンツが溢れた場合でも表示 */
   position: relative;
+  background-color: #8E24AA; /* 紫色に近いハロウィンカラー */
 }
 
 .upload-button {
@@ -102,6 +103,12 @@ option {
 
 #game-clear-screen h1 {
   color: #FFB74D; /* 明るいオレンジ */
+}
+
+#game-clear-screen img {
+  max-width: 80%;
+  height: auto;
+  margin-top: 20px;
 }
 
 button:focus, .upload-button:focus, select:focus {
