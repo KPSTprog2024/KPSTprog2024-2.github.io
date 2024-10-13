@@ -65,6 +65,7 @@ function initGame() {
     width: gameWidth,
     height: gameHeight * 2, // 高さを2倍に設定してスクロール可能に
     parent: 'game-container',
+    backgroundColor: '#8E24AA', // 背景色を紫色に設定
     scene: {
       preload: preload,
       create: create
@@ -83,6 +84,9 @@ function preload() {
 
 function create() {
   const scene = this;
+
+  // シーン全体の背景色を設定
+  scene.cameras.main.setBackgroundColor('#8E24AA'); // 背景色を紫色に設定
 
   // 画像を新しいImageオブジェクトとしてロード
   const img = new Image();
