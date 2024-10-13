@@ -9,6 +9,7 @@ let gameWidth = window.innerWidth;
 let gameHeight = window.innerHeight - 200; // タイトルと余白分高さを減らす
 let imageKey = '';
 let imageCounter = 0;
+let completedImageURL = ''; // 完成画像のデータURLを保存
 
 document.getElementById('piece-count').addEventListener('change', function (e) {
   const value = e.target.value;
@@ -104,6 +105,9 @@ function create() {
 
     const texture = scene.textures.get(imageKey).getSourceImage();
 
+    // 完成画像のデータURLを保存
+    completedImageURL = canvas.toDataURL();
+
     // 画像サイズをゲーム画面にフィットさせる
     const scaleX = (gameWidth * 0.8) / texture.width;
     const scaleY = (gameHeight * 0.4) / texture.height; // 上部に配置するため0.4に変更
@@ -127,7 +131,7 @@ function create() {
     const graphics = scene.add.graphics();
     graphics.lineStyle(4, 0xFFB74D); // 枠線を太くし、明るいオレンジ色に設定
     graphics.strokeRect(frameX, frameY, frameWidth, frameHeight);
-    graphics.fillStyle(0x1E1E1E, 1); // ダークグレーの背景
+    graphics.fillStyle(0x8E24AA, 1); // 背景色を紫色に変更
     graphics.fillRect(frameX, frameY, frameWidth, frameHeight);
     graphics.setDepth(0);
 
@@ -197,7 +201,7 @@ function create() {
 
         // ランダムな位置に配置（画面上部に配置）
         const posX = Phaser.Math.Between(20, gameWidth - pieceWidth - 20);
-        const posY = frameY + frameHeight + 20 + Phaser.Math.Between(0, 100);
+        const posY = frameY + frameHeight + imageHeight + 40 + Phaser.Math.Between(0, 100);
 
         piece.x = posX;
         piece.y = posY;
@@ -238,6 +242,25 @@ function create() {
         // すべてのピースが配置されたか確認
         if (piecesGroup.getChildren().length === 0) {
           scene.time.delayedCall(500, () => {
+            // クリア画面に完成した画像を表示
+            document.getElementById('completed-image').src = completedImageURL;
+
+            // ランダムなメッセージを表示
+            const messages = [
+              'クリア！ がんばったね！',
+              'すごい！ 完璧だよ！',
+              'やったね！ おめでとう！',
+              '素晴らしい！ よくできました！',
+              '最高！ 天才だね！',
+              'すごい集中力！',
+              '素敵なパズルが完成したね！',
+              '驚いた！ とても早かったよ！',
+              '大成功！ 楽しかったかな？',
+              'やった！ 次も挑戦してみよう！'
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('clear-message').textContent = randomMessage;
+
             document.getElementById('game-screen').style.display = 'none';
             document.getElementById('game-clear-screen').style.display = 'block';
           });
