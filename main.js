@@ -6,7 +6,7 @@ let pieceHeight;
 let piecesGroup;
 let puzzleGroup;
 let gameWidth = window.innerWidth;
-let gameHeight = window.innerHeight - 50; // 50はリセットボタンの高さを考慮
+let gameHeight = window.innerHeight - 150; // タイトルと余白分高さを減らす
 let imageKey = '';
 let imageCounter = 0;
 
@@ -86,10 +86,10 @@ function create() {
   // 画像を新しいImageオブジェクトとしてロード
   const img = new Image();
   img.onload = function () {
-    // 画像に外枠線を追加（太さ256ピクセル）
+    // 画像に外枠線を追加（太さ4ピクセル）
     const canvas = document.createElement('canvas');
-    canvas.width = img.width + 512; // 左右に256ピクセルずつ追加
-    canvas.height = img.height + 512; // 上下に256ピクセルずつ追加
+    canvas.width = img.width + 8; // 左右に4ピクセルずつ追加
+    canvas.height = img.height + 8; // 上下に4ピクセルずつ追加
     const ctx = canvas.getContext('2d');
 
     // 外枠線を描画
@@ -97,7 +97,7 @@ function create() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // 元の画像を中央に描画
-    ctx.drawImage(img, 256, 256);
+    ctx.drawImage(img, 4, 4);
 
     // 新しい画像をテクスチャとして追加
     scene.textures.addImage(imageKey, canvas);
@@ -106,7 +106,7 @@ function create() {
 
     // 画像サイズをゲーム画面にフィットさせる
     const scaleX = (gameWidth * 0.6) / texture.width;
-    const scaleY = (gameHeight * 0.8) / texture.height;
+    const scaleY = (gameHeight * 0.6) / texture.height;
     const scale = Math.min(scaleX, scaleY);
 
     const imageWidth = texture.width * scale;
@@ -116,7 +116,7 @@ function create() {
     pieceHeight = Math.floor(imageHeight / rows);
 
     // パズルの枠を描画
-    const frameX = 10; // 左からの位置
+    const frameX = (gameWidth - imageWidth) / 2; // 中央に配置
     const frameY = 10; // 上からの位置
 
     // 枠のサイズを設定
@@ -147,16 +147,13 @@ function create() {
     }
     graphics.strokePath();
 
-    // 完成形の画像を表示
-    const previewScale = 0.25; // キャンバスの1/4のサイズ
-    const previewWidth = frameWidth * previewScale;
-    const previewHeight = frameHeight * previewScale;
-    const previewX = frameX;
+    // 完成形の画像を表示（1/1サイズ）
+    const previewX = (gameWidth - imageWidth) / 2;
     const previewY = frameY + frameHeight + 20; // 枠の下に表示
 
     const previewImage = scene.add.image(previewX, previewY, imageKey);
     previewImage.setOrigin(0, 0);
-    previewImage.setScale((previewWidth / texture.width) * (cols / (cols + 2)), (previewHeight / texture.height) * (rows / (rows + 2)));
+    previewImage.setScale(scale);
     previewImage.setDepth(0);
 
     // ピースを生成
@@ -198,9 +195,9 @@ function create() {
         piece.correctX = x;
         piece.correctY = y;
 
-        // ランダムな位置に配置（枠の外、右側のスペース）
-        const posX = frameX + frameWidth + Phaser.Math.Between(20, gameWidth - frameWidth - pieceWidth - 20);
-        const posY = Phaser.Math.Between(20, gameHeight - pieceHeight - 20);
+        // ランダムな位置に配置（画面上部に配置）
+        const posX = Phaser.Math.Between(20, gameWidth - pieceWidth - 20);
+        const posY = frameY + frameHeight + 20 + imageHeight + 20 + Phaser.Math.Between(0, 50);
 
         piece.x = posX;
         piece.y = posY;
