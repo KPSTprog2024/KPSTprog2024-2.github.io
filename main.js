@@ -86,8 +86,21 @@ function create() {
   // 画像を新しいImageオブジェクトとしてロード
   const img = new Image();
   img.onload = function () {
-    // 画像がロードされたらテクスチャとして追加
-    scene.textures.addImage(imageKey, img);
+    // 画像に外枠線を追加（太さ256ピクセル）
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width + 512; // 左右に256ピクセルずつ追加
+    canvas.height = img.height + 512; // 上下に256ピクセルずつ追加
+    const ctx = canvas.getContext('2d');
+
+    // 外枠線を描画
+    ctx.fillStyle = '#000000'; // 枠線の色（黒）
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 元の画像を中央に描画
+    ctx.drawImage(img, 256, 256);
+
+    // 新しい画像をテクスチャとして追加
+    scene.textures.addImage(imageKey, canvas);
 
     const texture = scene.textures.get(imageKey).getSourceImage();
 
@@ -112,11 +125,39 @@ function create() {
 
     // 枠を描画
     const graphics = scene.add.graphics();
-    graphics.lineStyle(1024, 0xFF9800); // 枠線を太くし、明るいオレンジ色に設定
+    graphics.lineStyle(4, 0xFFB74D); // 枠線を太くし、明るいオレンジ色に設定
     graphics.strokeRect(frameX, frameY, frameWidth, frameHeight);
     graphics.fillStyle(0x1E1E1E, 1); // ダークグレーの背景
     graphics.fillRect(frameX, frameY, frameWidth, frameHeight);
     graphics.setDepth(0);
+
+    // 格子状のガイドラインを描画
+    graphics.lineStyle(1, 0xFFFFFF, 0.5); // 白色のガイドライン
+    // 垂直線
+    for (let i = 1; i < cols; i++) {
+      const x = frameX + i * pieceWidth;
+      graphics.moveTo(x, frameY);
+      graphics.lineTo(x, frameY + frameHeight);
+    }
+    // 水平線
+    for (let i = 1; i < rows; i++) {
+      const y = frameY + i * pieceHeight;
+      graphics.moveTo(frameX, y);
+      graphics.lineTo(frameX + frameWidth, y);
+    }
+    graphics.strokePath();
+
+    // 完成形の画像を表示
+    const previewScale = 0.25; // キャンバスの1/4のサイズ
+    const previewWidth = frameWidth * previewScale;
+    const previewHeight = frameHeight * previewScale;
+    const previewX = frameX;
+    const previewY = frameY + frameHeight + 20; // 枠の下に表示
+
+    const previewImage = scene.add.image(previewX, previewY, imageKey);
+    previewImage.setOrigin(0, 0);
+    previewImage.setScale((previewWidth / texture.width) * (cols / (cols + 2)), (previewHeight / texture.height) * (rows / (rows + 2)));
+    previewImage.setDepth(0);
 
     // ピースを生成
     piecesGroup = scene.add.group();
@@ -136,8 +177,8 @@ function create() {
         const ctx = canvasTexture.context;
         ctx.drawImage(
           texture,
-          col * pieceWidth / scale,
-          row * pieceHeight / scale,
+          (col * pieceWidth) / scale,
+          (row * pieceHeight) / scale,
           pieceWidth / scale,
           pieceHeight / scale,
           0,
