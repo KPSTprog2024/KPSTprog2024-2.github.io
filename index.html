@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>子供向けジグソーパズルゲーム</title>
+  <title>こどもむけジグソーパズルゲーム</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSSの読み込み -->
   <link rel="stylesheet" href="styles.css">
@@ -13,8 +13,8 @@
 
 <!-- スタート画面 -->
 <div id="start-screen">
-  <h1>ジグソーパズルゲーム</h1>
-  <label for="piece-count">ピース数を選択してください:</label>
+  <h1>きょうのジグソーパズル</h1>
+  <label for="piece-count">ピースのかずをえらんでね:</label>
   <select id="piece-count">
     <option value="3x4">12ピース（3×4）</option>
     <option value="4x5">20ピース（4×5）</option>
@@ -22,16 +22,16 @@
   </select>
   <br><br>
   <label for="upload-image" class="upload-button">
-    画像をアップロード
+    がぞうをいれる
     <input type="file" id="upload-image" accept="image/png, image/jpeg">
   </label>
   <br><br>
-  <button id="start-button" disabled>スタート</button>
+  <button id="start-button" disabled>はじめる</button>
 </div>
 
 <!-- パズルプレイ画面 -->
 <div id="game-screen" style="display: none;">
-  <button id="reset-button">リセット</button>
+  <button id="reset-button">やりなおす</button>
   <h1 id="game-title">きょうのジグソーパズル</h1>
   <div id="game-container" style="position: relative;">
     <!-- Phaserの描画領域 -->
@@ -43,7 +43,7 @@
   <h1 id="clear-message"></h1>
   <img id="completed-image" alt="完成したパズル">
   <br>
-  <button id="retry-button">もう一度挑戦</button>
+  <button id="retry-button">もういちどあそぶ</button>
 </div>
 
 <!-- スクリプトの読み込み -->
