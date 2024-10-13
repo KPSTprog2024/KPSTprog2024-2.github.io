@@ -1,6 +1,6 @@
 let selectedImage = null;
-let rows = 6;
-let cols = 8;
+let rows = 3;
+let cols = 4;
 let pieceWidth;
 let pieceHeight;
 let piecesGroup;
@@ -9,15 +9,19 @@ let gameWidth = window.innerWidth;
 let gameHeight = window.innerHeight - 50; // 50はリセットボタンの高さを考慮
 let imageKey = '';
 let imageCounter = 0;
+let puzzleFrame; // パズルの枠
 
 document.getElementById('piece-count').addEventListener('change', function (e) {
   const value = e.target.value;
-  if (value === '6x8') {
+  if (value === '3x4') {
+    rows = 3;
+    cols = 4;
+  } else if (value === '4x5') {
+    rows = 4;
+    cols = 5;
+  } else if (value === '6x8') {
     rows = 6;
     cols = 8;
-  } else if (value === '9x12') {
-    rows = 9;
-    cols = 12;
   }
 });
 
@@ -89,8 +93,8 @@ function create() {
     const texture = scene.textures.get(imageKey).getSourceImage();
 
     // 画像サイズをゲーム画面にフィットさせる
-    const scaleX = gameWidth / texture.width;
-    const scaleY = gameHeight / texture.height;
+    const scaleX = (gameWidth * 0.6) / texture.width;
+    const scaleY = (gameHeight * 0.8) / texture.height;
     const scale = Math.min(scaleX, scaleY);
 
     const imageWidth = texture.width * scale;
@@ -99,6 +103,21 @@ function create() {
     pieceWidth = Math.floor(imageWidth / cols);
     pieceHeight = Math.floor(imageHeight / rows);
 
+    // パズルの枠を設定
+    const frameX = 10; // 左からの位置
+    const frameY = 10; // 上からの位置
+
+    // 枠のサイズを設定
+    const frameWidth = pieceWidth * cols;
+    const frameHeight = pieceHeight * rows;
+
+    // 枠を表示
+    const puzzleFrameElement = document.getElementById('puzzle-frame');
+    puzzleFrameElement.style.left = frameX + 'px';
+    puzzleFrameElement.style.top = frameY + 'px';
+    puzzleFrameElement.style.width = frameWidth + 'px';
+    puzzleFrameElement.style.height = frameHeight + 'px';
+
     // ピースを生成
     piecesGroup = scene.add.group();
     puzzleGroup = scene.add.group();
@@ -106,8 +125,8 @@ function create() {
     let id = 0;
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
-        const x = col * pieceWidth;
-        const y = row * pieceHeight;
+        const x = frameX + col * pieceWidth;
+        const y = frameY + row * pieceHeight;
 
         // ピースを作成
         const pieceTextureKey = imageKey + '_piece_' + id;
@@ -117,8 +136,8 @@ function create() {
         const ctx = canvasTexture.context;
         ctx.drawImage(
           texture,
-          x / scale,
-          y / scale,
+          col * pieceWidth / scale,
+          row * pieceHeight / scale,
           pieceWidth / scale,
           pieceHeight / scale,
           0,
@@ -138,9 +157,9 @@ function create() {
         piece.correctX = x;
         piece.correctY = y;
 
-        // ランダムな位置に配置（右側の縦2列）
-        const posX = gameWidth - pieceWidth * (Math.random() < 0.5 ? 2 : 1) - Phaser.Math.Between(0, 10);
-        const posY = Phaser.Math.Between(0, gameHeight - pieceHeight);
+        // ランダムな位置に配置（枠の外、右側のスペース）
+        const posX = frameX + frameWidth + Phaser.Math.Between(20, gameWidth - frameWidth - pieceWidth - 20);
+        const posY = Phaser.Math.Between(20, gameHeight - pieceHeight - 20);
 
         piece.x = posX;
         piece.y = posY;
